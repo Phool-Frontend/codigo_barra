@@ -7,7 +7,55 @@
     <title>Como debe quedar mi APP</title>
 </head>
 <body>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script src="js/barcode-all.js"></script>
+
+
+
 <style>
+    #buscador_pro{
+        display:none;
+        width:80%;
+        padding:7px;
+        display:flex!important;
+        justify-content: center;
+        align-items:center;
+        margin: 0 auto;
+    }
+    #vista_registro{
+        display:none;
+    }
+    #vista_listar{
+        display:none;
+    }
+    #vista_vender{  
+        display:none;
+    }
+    .emo_menu input{
+        padding: 10px;
+        width: 80%;
+        margin-bottom: 4vh;
+    }
+    .emo_menu{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        border: solid 2px gold;
+        height: auto;
+        margin: 30vh auto;
+        padding-top: 4vh;
+    }
+    table, th, td {
+        border: 1px solid black;
+        color: black;
+        width: 100%;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: center;
+    }
     .contenedor_celular h2{
         text-align: center;
     }
@@ -95,8 +143,19 @@
         }
 </style>
 
-<fieldset class="filete">
+
+<div class="emo_menu">
+    <input type="button" value="Registrar producto" onclick="vista_registro()">
+    <input type="button" value="Listar Producto"    onclick="vista_listar()">
+    <input type="button" value="Vender producto"    onclick="vista_vender()">
+</div>
+
+
+
+
+<fieldset id="vista_registro" class="filete" >
     <div class="contenedor_de_registro">
+                <center><h2>Lectura de codigo de barra</h2></center>
                 <legend>Registrar Producto</legend>
                 <label for="">Ingrese Nombre</label>
                 <input type="text" name="" id="nombre_pro" class="cajita">
@@ -149,6 +208,61 @@
 </fieldset>
 
 
+<fieldset id="vista_listar">
+    <div class="contenedor_de_registro">
+    <center><h2>Listando codigo de barra</h2></center>
+
+    <table id="mytable" class="table table-bordred table-striped">
+          <thead>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Codigo_barra</th>
+                <th>Editar</th>
+                <th>Borrar</th>
+          </thead>
+          <tbody id="id_body">
+          </tbody>
+    </table>
+
+    
+</fieldset><br><br><br>
+
+
+
+<fieldset id="vista_vender">
+    <div class="contenedor_de_registro">
+    <center><h2>Comprar con codigo </h2></center>
+    <label for="">Ingrese codigo:</label>
+    <input type="text" name="" id="nombre_pro_venta" class="cajita">
+    <div class="codicional_camara">
+                        <label for="cbox1">Pistola o Celular?</label>
+                        <p>
+                            <input type="radio" name="color" id="pistola_venta">
+                                <label for="pistola_venta">Pistola</label>
+                            <input onclick="activar_camara_cel()" type="radio" name="color" id="celular_venta">
+                                <label for="celular_venta">Celular</label>
+                        </p>
+
+                       
+    </div> 
+
+    <input type="submit" id="buscador_pro" value="Buscar">
+
+    <hr>
+    <table id="mytable_venta" class="table table-bordred table-striped" style="display:none">
+        <thead>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Accion</th>
+        </thead>
+        <tbody id="id_body_venta">
+        </tbody>
+    </table>
+</fieldset>
+
+
 
 
 
@@ -178,17 +292,6 @@
         //$('.cajita_barra').show();
     });
 
-
-    
-   
-</script>
-<!--************************************************* COPY CODIGO DE BARRA  *********-->
-    
-
-<script src="js/quagga.min.js"></script>
-
-<script>
-
     $("#no_tengo").click(function(){
         
 
@@ -214,6 +317,13 @@
             console.log('No hacer nada xd');
         }
     })
+</script>
+<!--************************************************* COPY CODIGO DE BARRA  *********-->
+    
+
+<script src="js/quagga.min.js"></script>
+
+<script>
 
     function suena_maquinita() {
         var sonido_correcto_barra = new  Audio("sonido/barcode.wav");  
@@ -306,8 +416,6 @@
         
     }
     
-  
-
     function enviar_datos(){
 
             var cod_barra_seteado = $("#no_tengo").val();
@@ -332,7 +440,6 @@
          
     }
 
-
     function clasificando_barra(cod_barra,confirma) {
         console.log(confirma);
         $.ajax({
@@ -356,11 +463,147 @@
                 }
             }); 
     }
-/*
-var currentdate = new Date();
-var fecha_A_M_D   =  currentdate.getFullYear()+ "/" + (currentdate.getMonth()+1)+ "/" + currentdate.getDate();
-var hora_H_M_S  = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
-currentdate.toLocaleTimeString('en-US', {hour: '2-digit', minute:'2-digit'})
-*/   
+    /*
+    var currentdate = new Date();
+    var fecha_A_M_D   =  currentdate.getFullYear()+ "/" + (currentdate.getMonth()+1)+ "/" + currentdate.getDate();
+    var hora_H_M_S  = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+    currentdate.toLocaleTimeString('en-US', {hour: '2-digit', minute:'2-digit'})
+    */   
+    function vista_registro(){
+        $('#vista_registro').show();
+        $('.emo_menu').hide();
+    }
+
+    function vista_listar(){
+        $('#vista_listar').show();
+        $('.emo_menu').hide();
+        llamando_productos();
+    }
+
+    function vista_vender(){
+        $('#vista_vender').show();
+        $('.emo_menu').hide();
+        ///////////////////////
+        $('.codicional_camara').show()
+        $('#pistola_venta').click(function(){
+            $('.codicional_camara').hide();
+            $(".codicional_camara").click(function(){
+                    $("#nombre_pro_venta").focus();
+                    $("#buscador_pro").show();
+                    evaluar_codigo();         
+             });
+        })
+           
+    }
+    ////////////////////////////////////////// AREM0S LA PARTE DE LISTAR PRODUCTOS ///////////////////////////////////////
+    function llamando_productos(){
+            $.ajax({
+                type: "POST",
+                async:true,
+                url: 'crud.php',
+                data: {
+                    opcion          : 'mostrar',
+                    nombre          : $("#nombre_pro").val(),
+                    precio          : $("#precio_pro").val(),
+                    cantidad        : $("#cantidad_pro").val()
+                },
+                success: function (results) {
+                    
+                    dataArr = JSON.parse(results); 
+                    //console.log(dataArr);
+                    //console.log(dataArr[0].codigo_barra);
+                    var str = '';
+                    $("#id_body").html(str);	  
+                    for(i=0;i<dataArr.length;i++)
+                    {
+                    //`Con esto vale verga las demas comillas este es el REY`
+                    str += '<tr>'+
+                        '<td>'+dataArr[i].nombre+'</td>'+
+                        '<td>'+dataArr[i].precio+'</td>'+
+                        '<td>'+dataArr[i].cantidad+'</td>'+
+                        '<td><svg id="barcode'+dataArr[i].codigo_barra+'"></td>'+
+                        '<td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-sm" data-title="Edit" data-toggle="modal" data-target="#edit" onClick="editar('+dataArr[i].id+');" ><i class="fas fa-pencil-alt"></i></button></p></td>'+
+                        '<td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-sm" data-title="Delete" data-toggle="modal" data-target="#delete" onClick="borrar('+dataArr[i].id+');" ><i class="fas fa-trash-alt"></i></button></p></td>'+
+                        '<input type="hidden" id="delete_id">'+
+                        '</tr>';
+                    }  
+                    $("#id_body").html(str);
+                    //////////////////////////////////////////////////////////////////////////////
+                    /////// HORA DE METER EL CODIGO DE BARRA////////////////////////  Metodo para sacar arrays
+                    var barras = [];
+                    for(i=0;i<dataArr.length;i++)
+                    {
+                        barras.push(dataArr[i].codigo_barra);
+                    }
+                    console.log(barras);
+                    //////////////////////////////////////////////////////////////////
+                    for (let i = 0; i < barras.length; i++) {
+                        JsBarcode("#barcode" + barras[i], barras[i].toString(),{
+                            format: "codabar",
+                            lineColor: "#000",
+                            width:2,
+                            hight:30,
+                            displayValue:true
+                        });
+                        
+                    }
+
+                },
+                error: function (request, status, error) {
+                    alert(request.responseText);
+                    }
+                });
+    }
+   
+    function evaluar_codigo(){
+        $('#buscador_pro').click(function(){
+            var valor_input = $('#nombre_pro_venta').val();
+            //console.log(valor_input);
+                        $.ajax({
+                        type: "POST",
+                        async:true,
+                        url: 'crud.php',
+                        data: {
+                            opcion          : 'venta_producto',
+                            buscar_pro_ma   : valor_input,
+                            id_producto     : $("#id").val() 
+                        },
+                        success: function (results) {
+                                dataArr = JSON.parse(results); 
+                                //console.log(dataArr);
+                                //console.log(dataArr[0].codigo_barra);
+                                var str = '';
+                                $("#id_body_venta").html(str);	  
+                                for(i=0;i<dataArr.length;i++)
+                                {
+                                //`Con esto vale verga las demas comillas este es el REY`
+                                str += '<tr>'+
+                                    '<td>'+dataArr[i].nombre+'</td>'+
+                                    '<td>'+dataArr[i].precio+'</td>'+
+                                    '<td>'+dataArr[i].cantidad+'</td>'+
+                                    '<td><button class="btn btn-primary btn-sm" data-venta_pro='+dataArr[i].id_producto+'  onClick="vender_pro('+dataArr[i].id_producto+');" >Vender</button></td>';
+                                    
+                                    
+                                }  
+                                $("#id_body_venta").html(str);
+                                $('#mytable_venta').show();
+                        },
+                        error: function (request, status, error) {
+                            alert(request.responseText);
+                            }
+                        }); 
+        })
+         
+               
+    }
+
+    function vender_pro(valor){
+        console.log(valor);
+        $(this).click(function(){$('tbody').hide();});
+        //$("[data-venta_pro='120']").hide();
+        //$('tbody').hide();
+        //$("[data-venta_pro='120']").click(function(){$('tbody').hide();});
+    }
+    
 </script>
 

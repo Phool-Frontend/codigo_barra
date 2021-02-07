@@ -30,6 +30,10 @@
 
     function arrayjsonbarcode(j){
         json = JSON.parse(j);
+        
+        //Debe estar en un array como este el codigo de barra
+        //console.log(json);
+
         arr  = [];
         for(var x in json){
             arr.push(json[x]);
@@ -38,7 +42,10 @@
     }
 
     jsonvalor = '<?php echo json_encode($arraycodigos) ?>';
+    console.log(jsonvalor);
+
     valores  = arrayjsonbarcode(jsonvalor);
+    
 
     for (let i = 0; i < valores.length; i++) {
         JsBarcode("#barcode" + valores[i], valores[i].toString(),{
