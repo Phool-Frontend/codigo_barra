@@ -5,6 +5,7 @@ $conn = conexion();
 
 //var_dump($_REQUEST);
 //die();
+
 $opcion         =   $_POST['opcion'] ?? '';
 $id_producto    =   $_POST['id'] ?? '';
 $nombre         =   $_POST['nombre'] ?? '';
