@@ -6,12 +6,20 @@
     <title>Como debe quedar mi APP</title>
 </head>
 <body>
+
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
+<!-- Font owesome-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
 
-
+<!--Swit-alert 2-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.14.1/dist/sweetalert2.all.min.js"></script>
 
 <style>
+#buscador_pro_2{
+    display:none;
+}
+
     fieldset{
         border: solid 2px transparent;
     }
@@ -27,6 +35,12 @@
         }
     #label_codigo_venta,#nombre_pro_venta{
         display: none;
+    }
+    #buscador_pro_2{
+        width:80%;
+        padding:7px;
+      
+        margin: 0 auto;
     }
     #buscador_pro{
         display:none;
@@ -89,8 +103,7 @@
         text-align: center;
         font-size: 6vw;
     }
-    .contenedor_celular{
-        /*height: 40vh;*/
+    .contenedor_celular,.contenedor_celular_2{
         display: none;
         margin: 0 auto;
     }
@@ -138,12 +151,12 @@
         margin:23px;
     }
     /******************************************  ESTILOS DE LA CAMARA DE EDTEAM *****************************************************************/
-        #contenedor video{
+        #contenedor video,#contenedor_2 video{
             max-width: 100%;
             width: 100%;
             height:15rem;
         }
-        #contenedor{
+        #contenedor,#contenedor_2{
             max-width: 100%;
             position:relative;
         }
@@ -245,23 +258,24 @@
 
 
 <fieldset id="vista_vender">
-    <div class="contenedor_de_registro">
-    <center><h2>Comprar con codigo </h2></center>
-    <label for="label_codigo_venta" id="label_codigo_venta">Ingrese codigo:</label>
-    <input type="text" name="" id="nombre_pro_venta" class="cajita">
-    <div class="codicional_camara">
-                        <label for="cbox1">Pistola o Celular?</label>
-                        <p>
-                            <input type="radio" name="color" id="pistola_venta">
-                                <label for="pistola_venta">Pistola</label>
-                            <input onclick="activar_camara_cel()" type="radio" name="color" id="celular_venta">
-                                <label for="celular_venta">Celular</label>
-                        </p>
+    <div class="contenedor_de_registro_2">
+        <center><h2>Comprar con codigo </h2></center>
+        <label for="label_codigo_venta" id="label_codigo_venta">Ingrese codigo:</label>
+        <input type="text" name="" id="nombre_pro_venta" class="cajita">
+        <div class="codicional_camara_2">
+                            <label for="cbox1">Pistola o Celular?</label>
+                            <p>
+                                <input type="radio" name="color" id="pistola_venta_2">
+                                    <label for="pistola_venta_2">Pistola</label>
+                                <input onclick="activar_camara_cel_2()" type="radio" name="color" id="celular_venta_2">
+                                    <label for="celular_venta_2">Celular</label>
+                            </p>
 
-                       
+                                
     </div> 
 
-    <input type="submit" id="buscador_pro" value="Buscar">
+    <input type="submit" id="buscador_pro_2"  value="Buscar"> 
+    
 
     <hr>
     <table id="mytable_venta" class="table table-bordred table-striped" style="display:none">
@@ -274,6 +288,19 @@
         <tbody id="id_body_venta">
         </tbody>
     </table>
+
+    <!-- Activando camara para hacer la transaccion--->
+    <div class="contenedor_celular_2">
+                <h2>Captando codigo!!!</h2>
+               
+                
+                <input type="text" id="valor_pex_2" disabled>    
+                <div class="mensaje_cel_2"></div>
+                
+    </div>
+    
+    <div id="contenedor_2"></div>
+
 </fieldset>
 
 
@@ -314,6 +341,25 @@
             document.querySelectorAll(".txt_barra").forEach(box =>{ box.style.display = "block"});
             document.querySelectorAll(".cajita_barra").forEach(box =>{ box.style.display = "block"});
 
+            document.querySelectorAll(".codicional_camara").forEach(box =>{ box.style.display = "none"});
+            document.querySelectorAll(".txt_barra").forEach(box =>{ box.style.display = "block"});
+            document.querySelectorAll(".cajita_barra").forEach(box =>{ box.style.display = "block"});
+            
+         
+
+
+            e.preventDefault();
+        }, false );
+    });
+
+    [].forEach.call( document.querySelectorAll( '#pistola_venta_2' ), function ( a ) {
+        a.addEventListener( 'click', function ( e ) {
+            
+
+            document.querySelectorAll("#label_codigo_venta").forEach(box =>{ box.style.display = "block"});
+            document.querySelectorAll("#nombre_pro_venta").forEach(box =>{ box.style.display = "block"});
+            document.querySelectorAll("#buscador_pro_2").forEach(box =>{ box.style.display = "block"});
+            document.querySelectorAll(".codicional_camara_2").forEach(box =>{ box.style.display = "none"});
 
             e.preventDefault();
         }, false );
@@ -358,6 +404,17 @@
             }
 
 
+        
+        e.preventDefault();
+        },false);
+    });
+
+
+    [].forEach.call(document.querySelectorAll('#celular_venta_2'),function(a) {
+        a.addEventListener('click',function(e){
+            
+           
+            document.querySelectorAll(".codicional_camara_2").forEach(box =>{ box.style.display = "none"});
         
         e.preventDefault();
         },false);
@@ -443,6 +500,8 @@
                 },2500);
     }
 
+    
+
     function limpia_camara_barra(hola){
 
         document.querySelectorAll(".contenedor_celular").forEach(box =>{ box.style.display = "none"});
@@ -477,6 +536,10 @@
             }
 
             //console.log(codigo_barra);
+            Swal.fire({
+                title: '<i class="far fa-laugh" style="font-size:100px;color:blue!important)"></i>',
+                text: 'Se agrego correctamente!'
+            })
          
     }
 
@@ -540,20 +603,31 @@
         $('#vista_vender').show();
         $('.emo_menu').hide();
         ///////////////////////
-        $('.codicional_camara').show()
+        $('.codicional_camara').show();
+        
         $('#pistola_venta').click(function(){
             $('#nombre_pro_venta').show();
             $('#label_codigo_venta').show();
-            $('.codicional_camara').hide();
+            $('.codicional_camara').hide();   
             $(".codicional_camara").click(function(){
                     $("#nombre_pro_venta").focus();
-                    $("#buscador_pro").show();
+                    $("#buscador_pro_2").show();
                     evaluar_codigo();         
              });
         })
-        
+
+        $('#celular_venta_2').click(function(){
+            console.log("Borra todo mano gaaa");
+            $('.codicional_camara').hide();
+            $('#buscador_pro_2').hide();
+            $('hr').hide();
+            $('#nombre_pro_venta').show();
+            $( "#nombre_pro_venta" ).prop("disabled",true); 
+            
+        });
     }
     ////////////////////////////////////////// AREM0S LA PARTE DE LISTAR PRODUCTOS ///////////////////////////////////////
+    
     function llamando_productos(){
             $.ajax({
                 type: "POST",
@@ -662,7 +736,76 @@
         //$('tbody').hide();
         //$("[data-venta_pro='120']").click(function(){$('tbody').hide();});
     }
+
+    function activar_camara_cel_2(){      
+        console.log("Ya chapa");
+        Quagga.init({
+                    inputStream: {
+                        constraints: {
+                            width: 1920,
+                            height: 1080,
+                        },
+                        name: "Live",
+                        type: "LiveStream",
+                        target: document.querySelector('#contenedor_2'), // Pasar el elemento del DOM
+                    },
+                    decoder: {
+                        readers: ["ean_reader"]
+                    }
+                }, function (err) {
+                    if (err) {
+                        console.log(err);
+                        // Sonido de error de prueba
+                        sonido_error.play();
+                        return
+                    }
+                    console.log("Iniciado correctamente en camara_cel_2");
+                    Quagga.start();
+                });
+                Quagga.onDetected((data) => {
+                    suena_maquinita();
+                    var hola = data.codeResult.code;
+                    // Imprimimos todo el data para que puedas depurar
+                    console.log(data);
+                    llamada_pro_2(hola);
+                });
+    }
+
+    function llamada_pro_2(hola){
+      
+               
+                document.getElementById("nombre_pro_venta").value = hola;
+                document.querySelectorAll("#contenedor_2").forEach(box =>{ box.style.display = "none"});
+                var mensaje_succes = '<h2 style="font-size:smaller">Codigo detectado...</h2>';
+                document.getElementsByClassName("mensaje_cel_2")[0].innerHTML = mensaje_succes;
+                document.querySelectorAll(".mensaje_cel_2").forEach(box =>{ box.style.display = "block"});
+              
+                //Meter esto en un timeout de 3 segundos
+                setTimeout(function(){ 
+                     limpia_camara_barra_2(hola);
+                },2500);
+    }
     
+    function limpia_camara_barra_2(hola){
+
+        document.querySelectorAll(".contenedor_de_registro_2").forEach(box =>{ box.style.display = "block"});
+        document.querySelectorAll(".codicional_camara_2").forEach(box =>{ box.style.display = "none"});
+
+
+
+
+
+        document.querySelectorAll(".txt_barra_2").forEach(box =>{ box.style.display = "block"});
+
+        //Metemos el valor del otro input a este input :v
+        document.querySelectorAll(".cajita_barra").forEach(box =>{ box.style.display = "block"});
+        document.getElementsByClassName("cajita_barra")[0].value = hola;
+
+    }
 </script>
 
+<!--Barcode libreria-->
 <script src="js/barcode-all.js"></script>
+
+
+
