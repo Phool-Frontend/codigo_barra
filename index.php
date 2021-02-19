@@ -93,7 +93,7 @@
         margin-bottom: 2vh;
     }
 
-    .mensaje_cel{
+    .mensaje_cel,.mensaje_cel_2{
         width: 100%;
         height: 8vw;
         background-color:greenyellow;
@@ -103,6 +103,7 @@
         text-align: center;
         font-size: 6vw;
     }
+
     .contenedor_celular,.contenedor_celular_2{
         display: none;
         margin: 0 auto;
@@ -772,18 +773,23 @@
     }
 
     function llamada_pro_2(hola){
-                alert("Llego a funcion llamada_pro_2()");
-               
+        alert("llamada_pro_2()");
+        var mensaje_succes_2 = '<h2 style="font-size:smaller">Codigo detectado...</h2>';
+        document.getElementsByClassName("mensaje_cel_2")[0].innerHTML = mensaje_succes_2;
+        document.querySelectorAll(".mensaje_cel_2").forEach(box =>{ box.style.display = "block"});
+
+               /*
                 document.getElementById("nombre_pro_venta").value = hola;
                 document.querySelectorAll("#contenedor_2").forEach(box =>{ box.style.display = "none"});
-                var mensaje_succes = '<h2 style="font-size:smaller">Codigo detectado...</h2>';
-                document.getElementsByClassName("mensaje_cel_2")[0].innerHTML = mensaje_succes;
-                document.querySelectorAll(".mensaje_cel_2").forEach(box =>{ box.style.display = "block"});
+                
+                
+                
               
                 //Meter esto en un timeout de 3 segundos
                 setTimeout(function(){ 
                      limpia_camara_barra_2(hola);
                 },2500);
+                */
     }
     
     function limpia_camara_barra_2(hola){
