@@ -772,7 +772,7 @@
     }
 
     function llamada_pro_2(hola){
-      
+                alert("Llego a funcion llamada_pro_2()");
                
                 document.getElementById("nombre_pro_venta").value = hola;
                 document.querySelectorAll("#contenedor_2").forEach(box =>{ box.style.display = "none"});
@@ -802,6 +802,7 @@
         document.getElementsByClassName("cajita_barra")[0].value = hola;
 
     }
+
 </script>
 
 <!--Barcode libreria-->
